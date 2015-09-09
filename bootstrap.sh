@@ -72,7 +72,7 @@ rvm install 2.0.0-p643
 
 rvm use 2.0.0-p643 --default
 
-rvm all do gem install nomad-cli cocoapods bundler rake xcpretty fastlane
+rvm all do gem install --no-rdoc --no-ri nomad-cli cocoapods bundler rake xcpretty fastlane
 
 pod setup
 
