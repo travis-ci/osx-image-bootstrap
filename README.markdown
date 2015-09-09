@@ -61,4 +61,6 @@ out (for example OS X 10.9 to OS X 10.10).
 0. Run `DevToolsSecurity -enable`.
 0. Open the iOS simulator from Xcode → Open Developer Tools → iOS Simulator
 0. Create a test project, build and run unit tests. Then delete the test project.
+0. Give `travis` no-password sudo access by adding `travis ALL=(ALL) NOPASSWD: ALL`
+   to /etc/sudoers (use `visudo` to prevent breaking sudo)
 0. Run `bootstrap.sh` in this repository.
