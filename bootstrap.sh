@@ -29,6 +29,7 @@ PermitEmptyPasswords no
 LoginGraceTime 1m
 PermitRootLogin no
 UsePrivilegeSeparation sandbox
+Subsystem sftp /usr/libexec/sftp-server
 EOF
 
 cat > ~/.bashrc <<EOF
