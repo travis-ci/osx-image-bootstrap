@@ -70,7 +70,7 @@ rvm install 2.1.5
 rvm install 2.2.1
 rvm install 2.0.0-p643
 
-rvm use 2.0.0-p643 --default
+rvm alias create default 2.0.0-p643
 
 rvm all do gem install --no-rdoc --no-ri nomad-cli cocoapods bundler rake xcpretty fastlane
 
