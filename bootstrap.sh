@@ -85,3 +85,54 @@ EOF
 # To prevent RubyMotion permission errors because `sudo motion update` created
 # this
 mkdir -p ~/Library/RubyMotion
+
+cat > ~/runner.rb <<EOF
+#!/usr/bin/env ruby
+
+require "pty"
+require "socket"
+
+server = TCPServer.new("127.0.0.1", 15782)
+socket = server.accept
+
+PTY.open do |io, file|
+  pid = Process.spawn({"TERM" => "xterm"}, "/bin/bash", "--login", "/Users/travis/build.sh", [:out, :err] => file)
+  pipe_thread = Thread.new do
+    loop do
+      socket.print(io.read(1))
+    end
+  end
+
+  _, exit_status = Process.wait2(pid)
+  pipe_thread.kill
+
+  File.open("/Users/travis/build.sh.exit", "w") { |f| f.print((exit_status.exitstatus || 127).to_s) }
+end
+
+socket.close
+EOF
+
+mkdir -p ~/Library/LaunchAgents
+
+cat > ~/Library/LaunchAgents/com.travis-ci.runner.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.travis-ci.runner</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/travis/runner.rb</string>
+    </array>
+    <key>StandardOutPath</key>
+    <string>/Users/travis/runner.rb.out</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/travis/runner.rb.err</string>
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
+EOF
+
+launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
