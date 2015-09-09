@@ -80,3 +80,7 @@ sudo tee /etc/launchd.conf <<EOF
 setenv CI true
 setenv TRAVIS true
 EOF
+
+# To prevent RubyMotion permission errors because `sudo motion update` created
+# this
+mkdir -p ~/Library/RubyMotion
