@@ -1,14 +1,5 @@
 #!/bin/bash
 
-sudo sed -e 's/^travis ALL/travis ALL=(ALL) NOPASSWD: ALL' /etc/sudoers > /tmp/sudoers-new
-if ! visudo -cf /tmp/sudoers-new; then
-  echo "Error: Sudoers file not valid" >&2
-  exit 1
-fi
-chown root:wheel /tmp/sudoers-new
-chmod 0440 /tmp/sudoers-new
-sudo mv /tmp/sudoers-new /etc/sudoers
-
 mkdir -p ~/.ssh
 chmod 0700 ~/.ssh
 cat >> ~/.ssh/authorized_keys <<EOF
