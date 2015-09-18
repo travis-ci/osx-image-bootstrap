@@ -104,6 +104,8 @@ end
 socket.close
 EOF
 
+chmod +x ~/runner.rb
+
 mkdir -p ~/Library/LaunchAgents
 
 cat > ~/Library/LaunchAgents/com.travis-ci.runner.plist <<EOF
