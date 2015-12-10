@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ `id -u` -eq 0 ]]; then
+	echo "Try again, not as root."
+	exit 1
+fi
+
 mkdir -p ~/.ssh
 chmod 0700 ~/.ssh
 cat >> ~/.ssh/authorized_keys <<EOF
