@@ -48,7 +48,7 @@ sudo softwareupdate --schedule off
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep 
+brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep nvm
 
 brew install caskroom/cask/brew-cask
 
@@ -70,7 +70,7 @@ rvm install 2.0.0-p643
 
 rvm alias create default 2.0.0-p643
 
-rvm all do gem install --no-rdoc --no-ri nomad-cli cocoapods bundler rake xcpretty fastlane
+rvm all do gem install --no-documentation=rdoc,ri nomad-cli cocoapods bundler rake xcpretty fastlane
 
 pod setup
 

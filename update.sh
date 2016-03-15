@@ -6,7 +6,7 @@ if [[ `id -u` -eq 0 ]]; then
 fi
 
 
-brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep 
+brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep nvm
 brew update
 brew upgrade
 
