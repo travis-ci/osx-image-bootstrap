@@ -5,10 +5,9 @@ if [[ `id -u` -eq 0 ]]; then
 	exit 1
 fi
 
-
-brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep nvm
 brew update
 brew upgrade
+brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep nvm
 
 rvm get stable
 
