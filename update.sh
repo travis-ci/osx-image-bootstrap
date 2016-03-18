@@ -10,6 +10,8 @@ brew install git wget mercurial xctool node coreutils postgresql postgis sqlite 
 brew update
 brew upgrade
 
+rvm get stable
+
 rvm install jruby-1.7.19
 rvm install 1.9.3-p551
 rvm install 2.1.5
