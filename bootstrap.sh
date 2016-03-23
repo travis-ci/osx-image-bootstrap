@@ -50,6 +50,8 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep nvm
 
+echo "source /usr/local/opt/nvm/nvm.sh" >> ~/.bashrc
+
 brew install caskroom/cask/brew-cask
 
 brew cask install xquartz
