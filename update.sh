@@ -19,7 +19,7 @@ rvm install 2.0.0-p643
 
 rvm alias create default 2.0.0-p643
 
-rvm all do gem update --no-document nomad-cli cocoapods bundler rake xcpretty fastlane
+rvm all do gem update nomad-cli cocoapods bundler rake xcpretty fastlane
 
 pod setup
 

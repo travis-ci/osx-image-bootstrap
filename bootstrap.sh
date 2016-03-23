@@ -44,6 +44,10 @@ cat > ~/.bash_profile <<EOF
 [[ -s "\$HOME/.rvm/scripts/rvm" ]] && source "\$HOME/.rvm/scripts/rvm"
 EOF
 
+cat > ~/.gemrc <<EOF
+--no-document
+EOF
+
 sudo softwareupdate --schedule off
 
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -72,7 +76,7 @@ rvm install 2.0.0-p643
 
 rvm alias create default 2.0.0-p643
 
-rvm all do gem install --no-documentation=rdoc,ri nomad-cli cocoapods bundler rake xcpretty fastlane
+rvm all do gem install nomad-cli cocoapods bundler rake xcpretty fastlane
 
 pod setup
 
