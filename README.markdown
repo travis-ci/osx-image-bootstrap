@@ -42,7 +42,8 @@ out (for example OS X 10.9 to OS X 10.10).
   - Uncheck "Send Diagnostics & Usage data to Apple"
 0. Select "UTC - United Kingdom" as the location.
 0. Don't register the Mac.
-0. Update to the latest version of OS X in the App Store.
+0. Run necessary updates from `softwareupdate -l -a`. (You probably just want to
+   do `softwareupdate -i -a`.)
 0. Enable "Remote Login" in the Sharing Preference Pane. This enables SSH.
 0. Run `xcode-select --install` and work through the dialog boxes that pop up
 0. Disable automatic updates in the App Store preference pane
