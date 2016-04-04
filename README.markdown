@@ -54,6 +54,8 @@ out (for example OS X 10.9 to OS X 10.10).
 0. Check in Spotlight that indexing isn't running (wait until it's finished if
    it is).
 0. Power off the VM and save this as a new "vanilla image".
+0. Be sure to remove the ISO from the drive (or better yet, the optical drive from the
+   machine.)
 
 ## Creating a base box
 
