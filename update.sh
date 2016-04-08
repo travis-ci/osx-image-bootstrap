@@ -23,4 +23,6 @@ rvm all do gem update nomad-cli cocoapods bundler rake xcpretty fastlane
 
 pod setup
 
+sudo motion update
+
 sudo softwareupdate -l -a
