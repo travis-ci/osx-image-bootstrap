@@ -11,7 +11,7 @@ declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
   'coreutils' 'postgresql' 'postgis' 'sqlite' 'go' 'gpg' 'carthage' \
   'md5deep')
 declare -a NODE_VERSIONS=('6' '5' '4' '0.12' '0.10' '0.8' 'iojs')
-export NVM_VERSION="v0.31.0"
+export NVM_VERSION="v0.31.1"
 
 ## homebrew fun
 brew update
@@ -25,6 +25,7 @@ for PKG in "${BREW_PKGS[@]}"; do
 done
 
 brew upgrade
+## brew fun end
 
 # nvm fun
 if [[ ! -d $HOME/.nvm ]]; then
@@ -42,6 +43,7 @@ for VER in "${NODE_VERSIONS[@]}"; do
 done
 
 nvm list
+## end nvm fun
 
 # rvm fun
 rvm get head
@@ -60,8 +62,16 @@ rvm all do gem install bundler rake
 rvm 2.0,2.1.10,2.2.5,2.3 do gem install xcpretty cocoapods fastlane nomad-cli
 rvm get stable
 
+echo -e "\n"
+## end rvm fun
+
 # cocoapods
 pod setup
 
+# update rubymotion
+echo "Updating RubyMotion"
+sudo motion update
+
+# checking for system updates
 echo "Updates you *may* want to install:"
 sudo softwareupdate -l -a
