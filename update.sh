@@ -56,8 +56,8 @@ done
 
 rvm alias create default 2.0
 
-rvm all do gem install nomad-cli bundler rake 
-rvm 2.0,2.1.10,2.2.5,2.3 do gem install xcpretty cocoapods fastlane
+rvm all do gem install bundler rake 
+rvm 2.0,2.1.10,2.2.5,2.3 do gem install xcpretty cocoapods fastlane nomad-cli
 rvm get stable
 
 # cocoapods
