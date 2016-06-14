@@ -45,7 +45,7 @@ cat > ~/.bash_profile <<EOF
 EOF
 
 cat > ~/.gemrc <<EOF
---no-document
+gem: --no-document
 EOF
 
 sudo softwareupdate --schedule off
