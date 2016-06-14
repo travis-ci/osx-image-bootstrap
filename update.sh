@@ -47,7 +47,7 @@ nvm list
 rvm get head
 
 for RUBY in "${RUBIES[@]}"; do
-  if [[ ! $(rvm list | grep 2.2) ]]; then
+  if [[ ! $(rvm list | grep $RUBY) ]]; then
     rvm install $RUBY
   else
     echo "$RUBY fine"
