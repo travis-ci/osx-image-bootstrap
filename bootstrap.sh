@@ -54,7 +54,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 brew update
 
-brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep nvm
+brew install git wget mercurial xctool node coreutils postgresql postgis sqlite go gpg carthage md5deep
 
 echo "source /usr/local/opt/nvm/nvm.sh" >> ~/.bashrc
 
