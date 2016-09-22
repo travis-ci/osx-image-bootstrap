@@ -68,3 +68,4 @@ out (for example OS X 10.9 to OS X 10.10).
    to /etc/sudoers (use `visudo` to prevent breaking sudo)
 0. Run `bootstrap.sh` in this repository.
 0. Run the RubyMotion installer in /opt/homebrew-cask/Caskroom/rubymotion/latest/RubyMotion\ Installer.app
+0. Close all terminal windows, open a new one and run `rm ~/.bash_history` to remove any commands used for setup.
