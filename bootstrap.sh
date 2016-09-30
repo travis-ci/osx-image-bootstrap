@@ -12,15 +12,24 @@ declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
 declare -a NODE_VERSIONS=('6' '5' '4' '0.12' '0.10' '0.8' 'iojs')
 export NVM_VERSION="v0.31.1"
 
+$TRAVIS_SSH_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEe8yPui0lLZpgaRNghw1H/2SGrpWV7Frw5FkftKGvMjkCL/FP6FeNZOUfWk5qISlhgkjZPu78nioZrUndTjOnSS8pWbecTrQCLKijufOS7A4n212bsdLpMwNuUE8lI1T0i9GcMRYfyK2jm/mosJkED2MomVzBi45NkEjG9IK/OncDcw+i15PDZcwONKZujc04KfNevhCIEt1sGJ0/mffwmQW5KVeKl5RjkKBxlmjo4ZSEVJV0CfzFQaua3c3cSswl3i5RX1wP6ciGfJlI/OZlXdQO4AwtcNFumklJFa2wf6BbRzXsaAieBnc1O2z885rEpXeeOsNzI/z6A+jLwEte2jZgMDh2x5fN3b4Au/iZt7ZhD7241QxN2quz3ej1zjr9MDJizQyzCrOvjvdNWE6CyAjoyF7aYptHCXuSjUbe7i+xx1PQk/MA+lEWAAzW+N4v4nSkHhVcyHnCzZB1WOlmSDNh19CvpF7zwnzs95D25goAH/veImF3RUMzKT5VTETqDgzF1CneAPq16//cIE/fnxtej0e5ZVPbj7oAgPEt0ERIgUo852iLjCHhD2n4juV564yGhs4Gf8eu3aGV+6kzzt8jBZlsiATF1WIwXJQy9Ga8F36v/GZmWVv+NIyRVw0aW1n8xaUzpVBdiNR8u+LvpOX9St6B4Z1iB6m0nhV2Sw== travis@mac"
+
+
+echo "Rubies: $RUBIES"
+echo "brew pkgs: $BREW_PKGS"
+echo "node versions: $NODE_VERSIONS"
+echo "nvm version: $NVM_VERSION"
+
 bootstrap() {
+  echo "--- make .ssh/ && set permissions."
   mkdir -p ~/.ssh
   chmod 0700 ~/.ssh
 
-  cat >> ~/.ssh/authorized_keys <<EOF
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEe8yPui0lLZpgaRNghw1H/2SGrpWV7Frw5FkftKGvMjkCL/FP6FeNZOUfWk5qISlhgkjZPu78nioZrUndTjOnSS8pWbecTrQCLKijufOS7A4n212bsdLpMwNuUE8lI1T0i9GcMRYfyK2jm/mosJkED2MomVzBi45NkEjG9IK/OncDcw+i15PDZcwONKZujc04KfNevhCIEt1sGJ0/mffwmQW5KVeKl5RjkKBxlmjo4ZSEVJV0CfzFQaua3c3cSswl3i5RX1wP6ciGfJlI/OZlXdQO4AwtcNFumklJFa2wf6BbRzXsaAieBnc1O2z885rEpXeeOsNzI/z6A+jLwEte2jZgMDh2x5fN3b4Au/iZt7ZhD7241QxN2quz3ej1zjr9MDJizQyzCrOvjvdNWE6CyAjoyF7aYptHCXuSjUbe7i+xx1PQk/MA+lEWAAzW+N4v4nSkHhVcyHnCzZB1WOlmSDNh19CvpF7zwnzs95D25goAH/veImF3RUMzKT5VTETqDgzF1CneAPq16//cIE/fnxtej0e5ZVPbj7oAgPEt0ERIgUo852iLjCHhD2n4juV564yGhs4Gf8eu3aGV+6kzzt8jBZlsiATF1WIwXJQy9Ga8F36v/GZmWVv+NIyRVw0aW1n8xaUzpVBdiNR8u+LvpOX9St6B4Z1iB6m0nhV2Sw== travis@mac
-EOF
+  echo "--- Add Travis SSH key to authorized_keys && set permissions."
+  echo "$SSH_KEY" > ~/.ssh/authorized_keys 
   chmod 0600 ~/.ssh/authorized_keys
   
+  echo "--- Put hardened sshd config in place"
   sudo tee /etc/sshd_config <<EOF
 SyslogFacility AUTHPRIV
 LogLevel VERBOSE
@@ -37,6 +46,7 @@ UsePrivilegeSeparation sandbox
 Subsystem sftp /usr/libexec/sftp-server
 EOF
   
+  echo "--- Overwrite .bashrc with our own."
   cat > ~/.bashrc <<EOF
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
@@ -44,27 +54,27 @@ export TRAVIS=true
 export CI=true
 EOF
   
+  echo "--- Ensure that ~/.profile loads ~/.bashrc"
   cat > ~/.profile <<EOF
 [[ -s "\$HOME/.bashrc" ]] && source "\$HOME/.bashrc"
 EOF
   
+  echo "--- Ensure that ~/.bash_profile contents are correct"
   cat > ~/.bash_profile <<EOF
 [[ -s "\$HOME/.profile" ]] && source "\$HOME/.profile"
 [[ -s "\$HOME/.rvm/scripts/rvm" ]] && source "\$HOME/.rvm/scripts/rvm"
 EOF
   
+  echo "--- add 'gem: --no-document' so gem installs don't include documentation"
   cat > ~/.gemrc <<EOF
 gem: --no-document
 EOF
   
-  echo "--- Turn off automatic software updating..."
+  echo "--- Turn off automatic software updating"
   sudo softwareupdate --schedule off
   
-  echo "--- Install brew..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  
-  echo "--- Update brew"
-  brew update
+  echo "--- Install/upgrade brew"
+  brew upgrade || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   
   echo "--- Install tools with brew"
   ## homebrew fun
@@ -86,17 +96,17 @@ EOF
   brew cask install java
   brew cask install oclint
   brew cask install rubymotion
+  # To prevent RubyMotion permission errors because `sudo motion update` created
+  # this
   mkdir -p ~/Library/RubyMotion
 
-  brew upgrade
   
   echo "--- Install Maven now that we have Java."
   brew install maven
   ## brew fun end
   
-
-  # To prevent RubyMotion permission errors because `sudo motion update` created
-  # this
+  echo "--- Update RubyMotion"
+  sudo motion update
 
   # nvm
   echo "--- Install nvm"
@@ -137,6 +147,8 @@ EOF
   # 'do' is 'quoted' because otherwise vim syntax highlighting is v unhappy
   echo "--- Install gems for all rubies"
   rvm all 'do' gem install nomad-cli cocoapods bundler rake xcpretty fastlane
+
+  # end rvm
   
   echo "--- pod setup"
   pod setup
@@ -200,70 +212,8 @@ EOF
 EOF
   
   launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
-}
 
-update(){
-  # versions and things to install
-  declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
-  declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
-    'coreutils' 'postgresql' 'postgis' 'sqlite' 'go' 'gpg' 'carthage' \
-    'md5deep')
-  declare -a NODE_VERSIONS=('6' '5' '4' '0.12' '0.10' '0.8' 'iojs')
-  export NVM_VERSION="v0.31.1"
-  
-  ## homebrew fun
-  brew update
-  
-  for PKG in "${BREW_PKGS[@]}"; do
-    if [[ ! $(brew list | grep $PKG) ]]; then
-      brew install $PKG
-    else 
-     echo "$PKG present"
-    fi
-  done
-  
-  brew upgrade
-  ## brew fun end
-  
-  # nvm fun
-  if [[ ! -d $HOME/.nvm ]]; then
-    wget -qO- "https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh" | bash
-  fi
-  
-  source $HOME/.nvm/nvm.sh
-  
-  for VER in "${NODE_VERSIONS[@]}"; do
-    if [[ ! $(nvm list | grep $VER) ]]; then
-      nvm install $VER
-    else
-      echo "$VER present"
-    fi
-  done
-  
-  nvm list
-  ## end nvm fun
-  
-  # rvm fun
-  rvm get head
-  
-  
-  rvm alias create default 2.0
-  
-  rvm all 'do' gem install bundler rake 
-  rvm 2.0,2.1.10,2.2.5,2.3 'do' gem install xcpretty cocoapods fastlane nomad-cli
-  rvm get stable
-  
-  echo -e "\n"
-  ## end rvm fun
-  
-  # cocoapods
-  pod setup
-  
-  # update rubymotion
-  echo "Updating RubyMotion"
-  sudo motion update
-  
-  # checking for system updates
-  echo "Updates you *may* want to install:"
   sudo softwareupdate -l -a
 }
+
+bootstrap
