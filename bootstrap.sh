@@ -73,7 +73,7 @@ EOF
   echo "--- Turn off automatic software updating"
   sudo softwareupdate --schedule off
   
-  echo "--- Install/upgrade brew"
+  echo "--- Install/upgrade brew."
   brew upgrade || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   
   echo "--- Install tools with brew"
@@ -128,8 +128,10 @@ EOF
   # end nvm
 
   echo "--- Install rvm"
-  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-  curl -sSL https://get.rvm.io | bash -s stable
+  if [[ ! -d $HOME/.rvm ]]; then
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    curl -sSL https://get.rvm.io | bash -s stable
+  fi
   source "$HOME/.rvm/scripts/rvm"
 
   echo "--- Install rubies with rvm"
@@ -213,6 +215,8 @@ EOF
   
   launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
 
+
+  echo "You may want to install the following:"
   sudo softwareupdate -l -a
 }
 
