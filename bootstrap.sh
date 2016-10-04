@@ -109,6 +109,8 @@ EOF
   brew install maven
   ## brew fun end
   
+  brew cleanup
+
   echo "--- Update RubyMotion"
   sudo motion update
 
