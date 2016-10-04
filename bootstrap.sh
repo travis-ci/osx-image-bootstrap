@@ -31,13 +31,16 @@ bootstrap() {
   chmod 0600 ~/.ssh/authorized_keys
   
   echo "--- Put hardened sshd config in place"
-  sudo tee /etc/sshd_config <<EOF
+  sudo tee /etc/ssh/sshd_config <<EOF
 SyslogFacility AUTHPRIV
 LogLevel VERBOSE
 PubkeyAuthentication yes
 AuthorizedKeysFile	.ssh/authorized_keys
 PasswordAuthentication no
+KbdInteractiveAuthentication no
+KerberosAuthentication no
 ChallengeResponseAuthentication no
+GSSAPIAuthentication
 UsePAM no
 UseDNS no
 PermitEmptyPasswords no
