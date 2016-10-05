@@ -9,7 +9,7 @@ declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
 DEFAULT_RUBY="2.0.0-p643"
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
   'coreutils' 'postgresql' 'postgis' 'sqlite' 'go' 'gpg' 'carthage' \
-  'md5deep' 'pyenv')
+  'md5deep' 'pyenv' 'tmate')
 declare -a PIP_PKGS=('virtualenv' 'numpy' 'scipy' 'tox')
 declare -a NODE_VERSIONS=('6' '5' '4' '0.12' '0.10' '0.8' 'iojs')
 export NVM_VERSION="v0.31.1"
