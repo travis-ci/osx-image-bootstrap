@@ -83,7 +83,7 @@ EOF
   sudo softwareupdate --schedule off
   
   echo "--- Install/upgrade brew."
-  brew upgrade || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew upgrade || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install) </dev/null"
   
   echo "--- Install tools with brew"
   ## homebrew fun
