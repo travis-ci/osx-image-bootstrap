@@ -31,6 +31,10 @@ bootstrap() {
   echo "$TRAVIS_SSH_KEY" > ~/.ssh/authorized_keys
   chmod 0600 ~/.ssh/authorized_keys
   
+  echo "--- Enable passwordless sudo for travis"
+  echo 'travis ALL = (ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers.d/travis
+  sudo chmod 600 /etc/sudoers.d/travis
+
   echo "--- Put hardened sshd config in place"
   sudo tee /etc/ssh/sshd_config <<EOF
 SyslogFacility AUTHPRIV
