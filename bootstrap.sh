@@ -5,6 +5,7 @@ if [[ `id -u` -eq 0 ]]; then
 	exit 1
 fi
 
+
 declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
 DEFAULT_RUBY="2.0.0-p643"
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
@@ -236,4 +237,5 @@ EOF
   sudo softwareupdate -l -a
 }
 
-bootstrap
+echo "Have you installed Xcode?"
+xcodebuild > /dev/null && bootstrap
