@@ -238,4 +238,4 @@ EOF
 }
 
 echo "Have you installed Xcode?"
-xcodebuild > /dev/null && bootstrap
+xcodebuild --help > /dev/null && bootstrap
