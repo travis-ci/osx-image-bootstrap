@@ -230,5 +230,5 @@ EOF
   sudo softwareupdate -l -a
 }
 
-echo "Have you installed Xcode?"
+echo "Have you installed Xcode? (If you have, check xcode-select.)"
 xcodebuild --help > /dev/null && bootstrap
