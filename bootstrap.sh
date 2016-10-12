@@ -184,7 +184,6 @@ server = TCPServer.new("127.0.0.1", 15782)
 socket = server.accept
 
 PTY.spawn("/usr/bin/env", "TERM=xterm", "/bin/bash", "--login", "/Users/travis/build.sh") do |stdout, stdin, pid|
-  stdin.close
   IO.copy_stream(stdout, socket)
 
   _, exit_status = Process.wait2(pid)
