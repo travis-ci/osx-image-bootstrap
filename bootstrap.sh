@@ -46,7 +46,7 @@ PasswordAuthentication no
 KbdInteractiveAuthentication no
 KerberosAuthentication no
 ChallengeResponseAuthentication no
-GSSAPIAuthentication
+GSSAPIAuthentication no
 UsePAM no
 UseDNS no
 PermitEmptyPasswords no
