@@ -5,6 +5,7 @@ if [[ `id -u` -eq 0 ]]; then
 	exit 1
 fi
 
+
 declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
 DEFAULT_RUBY="2.0.0-p643"
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
@@ -31,6 +32,10 @@ bootstrap() {
   echo "$TRAVIS_SSH_KEY" > ~/.ssh/authorized_keys
   chmod 0600 ~/.ssh/authorized_keys
   
+  echo "--- Enable passwordless sudo for travis"
+  echo 'travis ALL = (ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers.d/travis
+  sudo chmod 600 /etc/sudoers.d/travis
+
   echo "--- Put hardened sshd config in place"
   sudo tee /etc/ssh/sshd_config <<EOF
 SyslogFacility AUTHPRIV
@@ -79,7 +84,7 @@ EOF
   sudo softwareupdate --schedule off
   
   echo "--- Install/upgrade brew."
-  brew upgrade || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew upgrade || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install) </dev/null"
   
   echo "--- Install tools with brew"
   ## homebrew fun
@@ -225,4 +230,5 @@ EOF
   sudo softwareupdate -l -a
 }
 
-bootstrap
+echo "Have you installed Xcode?"
+xcodebuild --help > /dev/null && bootstrap
