@@ -1,9 +1,8 @@
 language: objective-c
 matrix:
   include:
-    osx_image: 
-      - xcode8.1sneakpeek
-      - xcode7.3
+    - osx_image: xcode8.1sneakpeek
+    - osx_image: xcode7.3
 
 script:
   - ./bootstrap.sh
