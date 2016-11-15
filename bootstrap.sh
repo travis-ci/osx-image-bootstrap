@@ -7,7 +7,7 @@ fi
 
 
 declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
-DEFAULT_RUBY="2.0.0-p643"
+DEFAULT_RUBY="2.0.0-p648"
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
   'coreutils' 'postgresql' 'postgis' 'sqlite' 'go' 'gpg' 'carthage' \
   'md5deep' 'pyenv' 'tmate')
