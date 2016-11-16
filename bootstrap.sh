@@ -73,6 +73,8 @@ EOF
   cat > ~/.bash_profile <<EOF
 [[ -s "\$HOME/.profile" ]] && source "\$HOME/.profile"
 [[ -s "\$HOME/.rvm/scripts/rvm" ]] && source "\$HOME/.rvm/scripts/rvm"
+export NVM_DIR="\$HOME/.nvm"
+[[ -s "\$NVM_DIR/nvm.sh" ]] && source "\$NVM_DIR/nvm.sh"
 EOF
   
   echo "--- add 'gem: --no-document' so gem installs don't include documentation"
