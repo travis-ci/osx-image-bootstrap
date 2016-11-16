@@ -7,7 +7,7 @@ fi
 
 
 declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
-DEFAULT_RUBY="2.0.0-p643"
+DEFAULT_RUBY="2.0.0-p648"
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
   'coreutils' 'postgresql' 'postgis' 'sqlite' 'go' 'gpg' 'carthage' \
   'md5deep' 'pyenv' 'tmate')
@@ -46,7 +46,7 @@ PasswordAuthentication no
 KbdInteractiveAuthentication no
 KerberosAuthentication no
 ChallengeResponseAuthentication no
-GSSAPIAuthentication
+GSSAPIAuthentication no
 UsePAM no
 UseDNS no
 PermitEmptyPasswords no
@@ -73,6 +73,8 @@ EOF
   cat > ~/.bash_profile <<EOF
 [[ -s "\$HOME/.profile" ]] && source "\$HOME/.profile"
 [[ -s "\$HOME/.rvm/scripts/rvm" ]] && source "\$HOME/.rvm/scripts/rvm"
+export NVM_DIR="\$HOME/.nvm"
+[[ -s "\$NVM_DIR/nvm.sh" ]] && source "\$NVM_DIR/nvm.sh"
 EOF
   
   echo "--- add 'gem: --no-document' so gem installs don't include documentation"
@@ -230,5 +232,5 @@ EOF
   sudo softwareupdate -l -a
 }
 
-echo "Have you installed Xcode?"
+echo "Have you installed Xcode? (If you have, check xcode-select.)"
 xcodebuild --help > /dev/null && bootstrap
