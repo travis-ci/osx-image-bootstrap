@@ -31,6 +31,7 @@ bootstrap() {
   sudo systemsetup -setdisplaysleep Off
   sudo systemsetup -setharddisksleep Off
   sudo systemsetup -setremotelogin on
+  defaults write NSGlobalDomain NSAppSleepDisabled -bool YES
 
   echo "--- make .ssh/ && set permissions."
   mkdir -p ~/.ssh
