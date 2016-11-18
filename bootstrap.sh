@@ -234,7 +234,7 @@ EOF
 </plist>
 EOF
   
-  launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
+  sudo launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
 
 
   echo "You may want to install the following:"
