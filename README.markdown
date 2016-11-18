@@ -44,10 +44,8 @@ out (for example OS X 10.9 to OS X 10.10).
 0. Don't register the Mac.
 0. Run necessary updates from `softwareupdate -l -a`. (You probably just want to
    do `softwareupdate -i -a`.)
-0. Enable "Remote Login" in the Sharing Preference Pane. This enables SSH.
 0. Run `xcode-select --install` and work through the dialog boxes that pop up
 0. Disable automatic updates in the App Store preference pane
-0. Disable every sleep option in the Energy Saver preference pane
 0. Make sure automatic login is enabled in the Users and Groups preference pane
    (under Login Options).
 0. Disable the Screen Saver

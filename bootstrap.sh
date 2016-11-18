@@ -24,6 +24,14 @@ echo "node versions: $NODE_VERSIONS"
 echo "nvm version: $NVM_VERSION"
 
 bootstrap() {
+  echo "--- setting system preferences."
+  sudo systemsetup -settimezone GMT
+  sudo systemsetup -setsleep Off
+  sudo systemsetup -setcomputersleep Off
+  sudo systemsetup -setdisplaysleep Off
+  sudo systemsetup -setharddisksleep Off
+  sudo systemsetup -setremotelogin on
+
   echo "--- make .ssh/ && set permissions."
   mkdir -p ~/.ssh
   chmod 0700 ~/.ssh
