@@ -239,6 +239,13 @@ EOF
 
   echo "You may want to install the following:"
   sudo softwareupdate -l -a
+
+  git clone https://github.com/travis-ci/system-info.git
+  cd system-info
+  bundle install
+  bundle exec ruby exe/system-info
+  cd ..
+  rm -rf system-info
 }
 
 echo "Have you installed Xcode? (If you have, check xcode-select.)"
