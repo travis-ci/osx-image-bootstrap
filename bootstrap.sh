@@ -240,10 +240,19 @@ EOF
   echo "You may want to install the following:"
   sudo softwareupdate -l -a
 
+  echo " --- Create /usr/share/travis"
+  sudo mkdir -p /usr/share/travis
+  sudo chown -R travis /usr/share/travis
+
+  echo " --- Set up system-info"
   git clone https://github.com/travis-ci/system-info.git
   cd system-info
+  git reset --hard v2.0.3
   bundle install
-  bundle exec ruby exe/system-info
+  bundle exec system-info report \
+    --formats human,json \
+    --human-output /usr/share/travis/system_info \
+    --json-output /usr/share/travis/system_info.json \
   cd ..
   rm -rf system-info
 }

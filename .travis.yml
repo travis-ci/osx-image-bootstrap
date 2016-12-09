@@ -6,6 +6,8 @@ matrix:
 
 script:
   - ./bootstrap.sh
+  - ls -la /usr/share/travis/system_info.json
+  - cat /usr/share/travis/system_info.json
 
 #  - wget https://gist.githubusercontent.com/emdantrim/f2f6d8418e1d32b34234/raw/b98bf8c6ea9ac997cdf74dc18786ca0b3ef7b1a4/travis-debug-script-macos.sh
 #  - chmod u+x travis-debug-script-macos.sh
