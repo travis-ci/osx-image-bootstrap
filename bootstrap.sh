@@ -180,8 +180,8 @@ EOF
 
   # end rvm
   
-  echo "--- pod setup"
-  pod setup
+  echo "--- pod setup | wc -l"
+  pod setup | wc -l
 
   echo '--- set $CI, $TRAVIS to true'
   sudo tee /etc/launchd.conf <<EOF
@@ -239,6 +239,22 @@ EOF
 
   echo "You may want to install the following:"
   sudo softwareupdate -l -a
+
+  echo " --- Create /usr/local/travis"
+  sudo mkdir -p /usr/local/travis
+  sudo chown -R travis /usr/local/travis
+
+  echo " --- Set up system-info"
+  git clone https://github.com/travis-ci/system-info.git
+  cd system-info
+  git reset --hard v2.0.3
+  bundle install
+  bundle exec system-info report \
+    --formats human,json \
+    --human-output /usr/local/travis/system_info \
+    --json-output /usr/local/travis/system_info.json
+  cd ..
+  rm -rf system-info
 }
 
 echo "Have you installed Xcode? (If you have, check xcode-select.)"
