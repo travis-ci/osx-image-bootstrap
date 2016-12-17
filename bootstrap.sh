@@ -180,8 +180,8 @@ EOF
 
   # end rvm
   
-  echo "--- pod setup"
-  pod setup
+  echo "--- pod setup | wc -l"
+  pod setup | wc -l
 
   echo '--- set $CI, $TRAVIS to true'
   sudo tee /etc/launchd.conf <<EOF
