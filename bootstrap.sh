@@ -252,7 +252,7 @@ EOF
   bundle exec system-info report \
     --formats human,json \
     --human-output /usr/local/travis/system_info \
-    --json-output /usr/local/travis/system_info.json \
+    --json-output /usr/local/travis/system_info.json
   cd ..
   rm -rf system-info
 }
