@@ -22,7 +22,7 @@ end
 device_types['devicetypes'].each do |device_type|
   runtimes['runtimes'].select{|runtime| runtime['availability'] == '(available)'}.each do |runtime|
     puts "Creating #{device_type['name']} with #{runtime['name']}"
-    command = "xcrun simctl create '#{device_type['name']} #{device_type['identifier']} #{runtime['identifier']}"
+    command = "xcrun simctl create '#{device_type['name']}' #{device_type['identifier']} #{runtime['identifier']}"
     command_output = `#{command}`
     sleep 0.5
   end
