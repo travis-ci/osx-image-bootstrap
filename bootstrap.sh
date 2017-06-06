@@ -178,6 +178,7 @@ EOF
   # 'do' is 'quoted' because otherwise vim syntax highlighting is v unhappy
   echo "--- Install gems for all rubies"
   rvm all 'do' gem install nomad-cli cocoapods bundler rake xcpretty fastlane
+  rvm all 'do' gem cleanup
 
   # end rvm
   
@@ -238,6 +239,7 @@ EOF
   sudo launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
 
   echo " --- Create simulator devices with fastlane snapshot"
+  rvm all 'do' gem cleanup
   fastlane snapshot reset_simulators --force --ios_version $IOS_VERSIONS
 
   echo "You may want to install the following:"
