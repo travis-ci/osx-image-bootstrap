@@ -6,6 +6,7 @@ if [[ `id -u` -eq 0 ]]; then
 fi
 
 
+IOS_VERSIONS="8.1,8.2,8.3,8.4,9.0,9.1,9.2,9.3,10.0,10.1,10.2,10.3"
 declare -a RUBIES=('2.0' '2.1.10' '2.2.5' '2.3' 'jruby-1.7' 'jruby')
 DEFAULT_RUBY="2.0.0-p648"
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
@@ -236,6 +237,8 @@ EOF
   
   sudo launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
 
+  echo " --- Create simulator devices with fastlane snapshot"
+  fastlane snapshot reset_simulators --ios_version $IOS_VERSIONS
 
   echo "You may want to install the following:"
   sudo softwareupdate -l -a
