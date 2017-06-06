@@ -238,7 +238,7 @@ EOF
   sudo launchctl load ~/Library/LaunchAgents/com.travis-ci.runner.plist
 
   echo " --- Create simulator devices with fastlane snapshot"
-  fastlane snapshot reset_simulators --ios_version $IOS_VERSIONS
+  fastlane snapshot reset_simulators --force --ios_version $IOS_VERSIONS
 
   echo "You may want to install the following:"
   sudo softwareupdate -l -a
