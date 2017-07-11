@@ -45,13 +45,9 @@ travis_ssh_key_setup() {
 }
 
 passwordless_sudo_setup() {
-  if [[ ! -f /etc/sudoers.d/travis ]]; then
-    echo "--- Enable passwordless sudo for travis"
-    echo 'travis ALL = (ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers.d/travis
-    sudo chmod 600 /etc/sudoers.d/travis
-  else
-    echo "--- passwordless sudo is enabled. Skipping."
-  fi
+  echo "--- Enable passwordless sudo for travis"
+  echo 'travis ALL = (ALL) NOPASSWD:ALL' | sudo tee -a /etc/sudoers.d/travis
+  sudo chmod 600 /etc/sudoers.d/travis
 }
 
 harden_sshd_config() {
@@ -119,23 +115,16 @@ EOF
 }
 
 gemrc_setup() {
-  if [[ ! $(grep no-document ~/.gemrc) ]]; then
-    echo "--- add 'gem: --no-document' so gem installs don't include documentation"
-    cat > ~/.gemrc <<EOF
+  echo "--- add 'gem: --no-document' so gem installs don't include documentation"
+  cat > ~/.gemrc <<EOF
 gem: --no-document
 EOF
-  else
-    echo "--- .gemrc is good. Skipping."
-  fi
+
 }
 
 disable_scheduled_software_updates() {
-  if [[ ! $(sudo softwareupdate --schedule | grep off) ]]; then
-    echo "--- Turn off automatic software updating"
-    sudo softwareupdate --schedule off
-  else
-    echo "--- Automatic software updates are disabled. Skipping."
-  fi
+  echo "--- Turn off automatic software updating"
+  sudo softwareupdate --schedule off
 }
 
 brew_setup_update() {
