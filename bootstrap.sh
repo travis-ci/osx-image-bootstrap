@@ -7,8 +7,8 @@ fi
 
 
 IOS_VERSIONS="8.1,8.2,8.3,8.4,9.0,9.1,9.2,9.3,10.0,10.1,10.2,10.3"
-declare -a RUBIES=('2.3.3' '2.4.1')
-DEFAULT_RUBY="2.4.1"
+declare -a RUBIES=('2.3.5' '2.4.2')
+DEFAULT_RUBY="2.4.2"
 declare -a GEMS=('nomad-cli' 'cocoapods' 'bundler' 'rake' 'xcpretty' 'fastlane')
 declare -a BREW_PKGS=('git' 'wget' 'mercurial' 'xctool' 'node' \
   'coreutils' 'postgresql' 'postgis' 'sqlite' 'go' 'gpg' 'carthage' \
@@ -351,7 +351,7 @@ system_info() {
   git clone https://github.com/travis-ci/system-info.git
   cd system-info
   git reset --hard v2.0.3
-  rvm use ruby-2.3.3 # some of the pinned dependencies don't work on 2.4.x
+  rvm use ruby-2.3.5 # some of the pinned dependencies don't work on 2.4.x
   bundle install
   bundle exec system-info report \
     --formats human,json \
@@ -391,11 +391,12 @@ bootstrap() {
   brew_setup_update
   brew_packages_install
   rubymotion_update
-  python_libraries_install
+  ###python_libraries_install # pip is unhappy in 10.12.6 and we need to figure out why
   nvm_install
   node_versions_install
   rvm_install
   rubies_install
+  common_rubygems_install
   cocoapods_setup
   set_env_travisci_true
   setup_travis_runner
